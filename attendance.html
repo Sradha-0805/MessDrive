@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js" integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" integrity="sha512-nMNlpuaDPrqlEls3IX/Q56H36qvBASwb3ipuo3MxeWbsQB1881ox0cRv7UPTgBlriqoynt35KjEwgGUeUXIPnw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script>
+        $(document).ready(function()
+        {
+            $("#ddl-select").select2({
+                placeholder:'select absentees...',
+                closeOnSelect: false
+            });
+            $("#ddl-select").on('change', function()
+            {
+                var colorsdisplay = $('#ddl-select option:selected').text();
+                $('#txtcolors').val(colorsdisplay );
+
+            });
+
+        });
+        
+
+    </script>
+
+<script>
+    $(document).ready(function()
+    {
+        $("#ddl-selectStaff").select2({
+            placeholder:'select absentees...',
+            closeOnSelect: false
+        });
+        $("#ddl-selectStaff").on('change', function()
+        {
+            var colorsdisplayStaff = $('#ddl-selectStaff option:selected').text();
+            $('#txtcolorsStaff').val(colorsdisplayStaff );
+
+        });
+
+    });
+    
+
+</script>
+
+
+</head>
+<body>
+
+    <center>
+        <div class ="container-fluid">
+        <h1> Attendance </h1>
+        <br>
+        <h5 > Mark inmate attendance</h5>
+        <label for="date" >Date</label>
+        
+        <input type="date" id="date" name="date" class="btn btn-info">
+    </div>
+        
+        <br>
+        <br>
+        <form method = 'POST'>
+            {% csrf_token %}
+        <select id = "ddl-select" multiple style = "width: 80%;" name = "ddl-select" class="form-control">
+            {% for result in User %}
+            <option> {{result.username}} </option>
+            {% endfor %}
+            
+        </select>
+    
+        <br>
+        <br>
+        
+        <input type = 'text' id = "txtcolors" style = "width: 80%;" class="form-control">
+        <br>
+        <a href = {% url 'markPresent' %}> <input type = 'submit' value = 'Mark Absent' class="btn btn-danger" ></a>
+    </form>
+    
+    </center>
+
+
+    <center>
+        
+        <h3> Mark staff attendance</h3>
+        <label for="date" >Date</label>
+        <input type="date" id="date" name="date" class="btn btn-info">
+        
+        <br>
+        <br>
+        
+        <select id = "ddl-selectStaff" multiple style = "width: 80%;" class="form-control">
+            {% for i in Staff %}
+            <option>{{i.username}} <br></option>
+            {% endfor %}
+            
+        </select>
+        <br>
+        <br>
+        
+        <input type = 'text' id = "txtcolorsStaff" class="form-control" style = "width: 80%" >
+        <br> 
+        <input type = 'submit' value = 'Mark Absent' class="btn btn-danger" >
+    </center>
+
+    
+</body>
+</html>
