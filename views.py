@@ -29,6 +29,9 @@ def attendance_one(request):
     get_response = request.POST
     absentees_name = dict(get_response).get('absenteeslist')
     print(type(absentees_name))
+    
+    # code below for excluding absent users and storing present users to database.
+
     for i in absentees_name:
         absentees = User.objects.exclude(id = i).values('id')
         print(absentees)
