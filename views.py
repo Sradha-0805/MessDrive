@@ -1,6 +1,3 @@
-import http 
-import pickle
-from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views.generic import CreateView
