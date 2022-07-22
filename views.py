@@ -43,6 +43,7 @@ def attendance_one(request):
                 attendance.userid = j
                 attendance_mark.save()
      return render(request, 'attendance.html', {"User" : users, "Staff" : staff})  
+     #code ends for marking attendance
     
 
 
